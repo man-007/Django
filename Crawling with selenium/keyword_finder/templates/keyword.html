@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<form id="form" method='POST'>
+		{% csrf_token %}
+		{{ form|crispy }}
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<button class="btn btn-primary" type="submit" id="get_keyword">Get Keyword</button>
+			</div>
+		</div>
+	</form>
+	{% if request.POST %}
+		<div class="row">
+		    <div class="col-md-8">
+				<div class="content-section">
+					{% for ele in meta_data %}
+						<p>
+						meta-name : {{ ele.name }}
+						</p>
+						<br />
+						<p>
+						meta-property : {{ ele.property }}
+						</p>
+						<br />
+						<p>
+						meta-content : {{ ele.content }}
+						</p>
+						<br />
+					{% endfor %}
+				</div>
+		    </div>
+		 </div>
+		 <div class="col-md-8">
+			<div class="content-section">
+				<h1>Recommendation</h1>
+				{% for ele in recommend_urls %}
+					{% for ele2 in ele %}
+						<div class="content">
+							<a href="{{ ele2 }}">{{ ele2 }}</a>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+	    </div>
+    {% endif %}
+	
+
+{% endblock %}

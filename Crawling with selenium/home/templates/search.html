@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>App Searcher</h1>
+<form id="" method='GET' onchange={(}>
+	{{ store_select_form|crispy }}
+	<div class="btn-group btn-group-justified" role="group">
+		<div class="btn-group" role="group">
+			<button class="btn-primary">Select</button>
+		</div>
+	</div>
+</form>
+
+{% if request.GET %}
+	<form id="Store_form" method=POST>
+		{% csrf_token %}
+		{{ Store_form|crispy }}
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<button class="btn btn-primary" type="submit">Get Info</button>
+			</div>
+		</div>
+	</form>
+{% endif %}
+{% if request.POST %}
+	<div class="content">
+		<div class="content">
+			<img src="{{ info.Image }}">
+			<p>
+				<h3>App Name: {{ info.App_name }}</h3>
+			</p>
+			<br />
+			<p>
+				<h3>Description: {{ info.Description }}</h3>
+			</p>
+			<br />
+			<p>
+				<h3>App Rating: {{ info.Rating }}</h3>
+			</p>
+			<br />
+			<p>
+				<h3>No. of ratings: {{ info.Total_ratings }}</h3>
+			</p>
+		</div>
+	</div>
+{% endif %}
+{% endblock %}
