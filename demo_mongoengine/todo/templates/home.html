@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    {% for dataa in data.work %}
+        <div class="content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#">{{ dataa.task }}</a>
+                        </br>
+                        <a class="mr-2" href="{% url 'delete' dataa.id %}">Delete Task</a>
+                        <a class="mr-2" href="{% url 'update' dataa.id %}">Update Task</a>   
+                    </div>
+                    <p class="article-content">Description          : {{ dataa.Description }}</p>
+                    <p class="article-content">Added Date   : {{ dataa.date_added }}</p>
+                </div> 
+        </div>
+    {% endfor %}
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Add task to your to do list</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+        
+{% endblock content %}
